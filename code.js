@@ -273,7 +273,7 @@ function code(num) {
 }
 
 // Instructions
-console.log("　 　／＞　フ\n　 |   _　_\n　／` ミ＿xノ\n　/　|\n　/　ヽ　ﾉ\n　│　|　|　|\n　／￣|　|　|　|\n　| (￣ヽ＿_ヽ_)__)\n　＼二つ\tDot Souls\n\n---=====---\n");
+console.log("　　　  　　／＞　　フ\n　　　 　  |   _　 _\n　 　　 　／` ミ＿xノ\n　　 　 /　　　 　 |\n　　　 /　 ヽ　　 ﾉ\n　 　 │　　|　|　|\n　／￣|　　 |　|　|\n　| (￣ヽ＿_ヽ_)__)\n　＼二つ\tDot Souls\n\n---=====---\n");
 console.log("\tMade by:\n\t\tOctavio McNaughton\n\tBeta Testers:\n\t\tAlberto Acosta\n\t\tLogan Suitter\n\n\tOpen Source Code:\n\t\thttps://github.com/Nooneyouknowof/Dot_Souls\n");
 console.log("---=====---\n\nUse 'WASD' to move your character\nUse 'Mouse' to Aim\nUse 'Spacebar' to Shoot\nUse 'LShift' to Slide\nPress 'R' to Restart");
 if(NoHit) {console.log('Game will restart upon taking damage')};
