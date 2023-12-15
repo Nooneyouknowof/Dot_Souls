@@ -1,0 +1,185 @@
+* {
+    margin: 0px;
+}
+
+body {
+    overflow: hidden;
+    background-color: black;
+}
+
+#screen {
+    position: absolute;
+    background-color: white;
+    height: 100vh;
+    width: 100vh;
+    left: 50%;
+    transform: translate(-50%,0%);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#boss {
+    width: 10%;
+    height: 10%;
+    background-color: red;
+    position: absolute;
+    border-radius: 30px;
+    transform: translate(-50%,-50%);
+    opacity: 0;
+}
+
+#player {
+    width: 10%;
+    height: 10%;
+    background-color: black;
+    position: absolute;
+    border-radius: 15px;
+    transform: translate(-50%,-50%);
+}
+
+#objects {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+}
+
+#objects > div {
+    width: 5%;
+    height: 5%;
+    position: absolute;
+    border-radius: 15px;
+    transform: translate(-50%,-50%);
+}
+
+.arrow {
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.boss_arrow {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0px 0px 10px 2px black;
+}
+
+.one_shot {
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0px 0px 20px 5px aqua, inset 0px 0px 10px 5px aqua;
+}
+
+#game_end {
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0;
+}
+
+#game_end > h1 {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+#fx {
+    position: absolute;
+    top: 0%;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0);
+    box-shadow: inset 0px 0px 5vw 0vw rgba(255, 0, 0, 0);
+}
+
+#login {
+    position: absolute;
+    top: 0%;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 1;
+}
+
+.username {
+    position: absolute;
+    top: 47.5%;
+    left: 50%;
+    width: 30vw;
+    height: 3vh;
+    transform: translate(-50%, -50%);
+    border: 0px;
+    outline: 0px;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+.start {
+    top: 52.5%;
+}
+
+#showFPS {
+    margin: 1vw;
+    font-weight: bold;
+    font-size: 2vw;
+    opacity: 0.1;
+}
+
+#playerHealth {
+    position: absolute;
+    margin: 1vw;
+    font-weight: bold;
+    font-size: 3vw;
+    bottom: 0px;
+}
+
+#boss_health {
+    position: absolute;
+    left: 50%;
+    top: 4%;
+    width: 50%;
+    height: 3vh;
+    background-color: rgba(0,0,0,0.5);
+    transform: translate(-50%, 0%);
+}
+#boss_health_value {
+    width: 100%;
+    height: 100%;
+    background-color: red;
+}
+
+@keyframes Hurt {
+    0% {
+        background-color: rgba(255, 0, 0, 0.5);
+        box-shadow: inset 0px 0px 5vw 5vw rgba(255, 0, 0, 1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+    100% {
+        background-color: rgba(255, 0, 0, 0);
+        box-shadow: inset 0px 0px 5vw 0vw rgba(255, 0, 0, 0);
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+    }
+}
+
+@keyframes fade_in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
