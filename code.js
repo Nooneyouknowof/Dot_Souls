@@ -164,7 +164,7 @@ function loop() {
     bossObj['px'] = bx;
     bossObj['py'] = by;
 
-    obj.innerHTML = "";
+    obj.innerHTML = '';
     objects.map((item,index) => {
         let temp = document.createElement('div');
         temp.id = index;
@@ -219,28 +219,36 @@ function loop() {
     } else {
         if (health < 0) {health = 0};
         Score = Math.round(Math.pow(((100-bossObj['health'])+health)/2, 2));
-        if (localStorage.getItem('highScore') != null) {
-            if (localStorage.getItem('highScore') < Score) {
-                localStorage.setItem('highScore', Score);
+        if (localStorage.getItem(playername) != null) {
+            if (localStorage.getItem(playername) < Score) {
+                localStorage.setItem(playername, Score);
             }
         } else {
-            localStorage.setItem('highScore', Score);
+            localStorage.setItem(playername, Score);
         }
-        document.querySelector("#game_end > h1").innerHTML = `Highscore: ${localStorage.getItem('highScore')}<br />Score: ${Score}`;
+        document.querySelector("#game_end > h1").innerHTML = `Highscore: ${localStorage.getItem(playername)}<br />Score: ${Score}`;
         end_screen.style.animation = 'fade_in 2s ease-out 0s 1 forwards';
     }
 }
 
 let login = document.querySelector("#login");
+login.addEventListener('keydown', event => {
+    if (event.key == 'Enter') {
+        start();
+    }
+})
 function start() {
-    login.style.opacity = 0;
-    login.style.animation = 'fade_in 2s ease-out 0s 1 reverse';
-    console.log
-    // localStorage.getItem
-    // loop();
+    playername = document.querySelector("#user").value;
+    if (playername != '') {
+        login.style.opacity = 0;
+        login.style.animation = 'fade_out 2s ease-out 0s 1 forwards';
+        loop();
+    }
+    // console.log(playername.value)
+    // localStorage.getItem();
 }
 
 // Instructions
-console.log("---=====---\n");
+console.log("　　　  　　／＞　　フ\n　　　 　  |   _　 _\n　 　　 　／` ミ＿xノ\n　　 　 /　　　 　 |\n　　　 /　 ヽ　　 ﾉ\n　 　 │　　|　|　|\n　／￣|　　 |　|　|\n　| (￣ヽ＿_ヽ_)__)\n　＼二つ\tDot Souls\n\n---=====---\n");
 console.log("\tMade by:\n\t\tOctavio McNaughton");
 console.log("---=====---\n\nUse 'WASD' to move your character\nUse 'Mouse' to Aim\nUse 'Spacebar' to Shoot\nUse 'LShift' to Slide\nPress 'Ctrl + R' to Restart");
