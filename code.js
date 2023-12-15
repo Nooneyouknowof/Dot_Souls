@@ -24,13 +24,15 @@ let pt = time;
 let dt = time;
 let isAttacking = false;
 let isHurt = false;
-let mouseX = 0;
-let mouseY = 0;
+let mouseX = 50;
+let mouseY = 50;
 let damage = 0.1;
 let Score = 0;
 let bossAttackType = "boss_arrow";
 let playername = 'Player1';
 let HardcoreMode = false;
+let NoHit = false;
+if (localStorage.getItem('NoHit_value') == 'true') {NoHit = true};
 
 let bossObj = {'type': 'boss', 'state': -1, 'damage': 10, 'time': Date.now(), 'x': 50, 'y': 10, 'px': 50, 'py': 10, 'health': 100}
 let objects = [];
@@ -44,7 +46,8 @@ let keyboard = {}
 document.addEventListener('keydown', (event) => {
     let key = event.key
     if (key === " ") {key = "SPACE"};
-    keyboard[key.toUpperCase()] = true
+    keyboard[key.toUpperCase()] = true;
+    if (keyboard.R) {location.reload()};
 })
 
 document.addEventListener('keyup', (event) => {
@@ -172,12 +175,13 @@ function loop() {
         temp.classList.add(item['type']);
 
         if (item['type'] == 'arrow') {
-            let c = distance(item['x'], item['y'], bx, by);
+            let c = distance(bx, by, item['x'], item['y']);
             if (c < bs*2) {bossObj['health'] -= damage*((bs*2)-c)*dt};
         }
         if (item['type'] == 'boss_arrow' || item['type'] == 'one_shot') {
             let c = distance(x, y, item['x'], item['y']);
             if (c < ps*2) {
+                if (NoHit) {location.reload()};
                 health -= item['damage']*((ps*2)-c)*dt;
                 isHurt = true
             };
@@ -227,7 +231,7 @@ function loop() {
         } else {
             localStorage.setItem(playername, Score);
         }
-        document.querySelector("#game_end > h1").innerHTML = `Highscore: ${localStorage.getItem(playername)}<br />Score: ${Score}`;
+        document.querySelector("#game_end > h1").innerHTML = `Highscore: ${localStorage.getItem(playername)}<br />Score: ${Score}<br /><span id='small'>Press 'R' to Restart</span>`;
         end_screen.style.animation = 'fade_in 2s ease-out 0s 1 forwards';
     }
 }
@@ -240,11 +244,11 @@ login.addEventListener('keydown', event => {
 })
 let allowStart = true;
 function start() {
-    playername = document.querySelector("#user").value;
-    if (playername != '' && allowStart) {
+    playername = `player_${document.querySelector("#user").value}`;
+    if (playername != 'player_' && allowStart) {
         allowStart = false;
         login.style.opacity = 0;
-        login.style.animation = 'fade_out 2s ease-out 0s 1 forwards';
+        login.style.animation = 'fade_out 5s ease-out 0s 1 forwards';
         loop();
     } else {
         document.querySelector("#user").value = 'Player1';
@@ -258,10 +262,18 @@ function code(num) {
         bossObj['health'] = Infinity;
         msg = "Endless mode is now ON";
     };
+    if (num == "NoHit") {
+        NoHit = !NoHit;
+        localStorage.setItem('NoHit_value', NoHit);
+        player_health.style.display = 'none';
+        msg = NoHit;
+        setTimeout(() => {location.reload()},1000);
+    };
     return msg;
 }
 
 // Instructions
-console.log("　　　  　　／＞　　フ\n　　　 　  |   _　 _\n　 　　 　／` ミ＿xノ\n　　 　 /　　　 　 |\n　　　 /　 ヽ　　 ﾉ\n　 　 │　　|　|　|\n　／￣|　　 |　|　|\n　| (￣ヽ＿_ヽ_)__)\n　＼二つ\tDot Souls\n\n---=====---\n");
+console.log("　 　／＞　フ\n　 |   _　_\n　／` ミ＿xノ\n　/　|\n　/　ヽ　ﾉ\n　│　|　|　|\n　／￣|　|　|　|\n　| (￣ヽ＿_ヽ_)__)\n　＼二つ\tDot Souls\n\n---=====---\n");
 console.log("\tMade by:\n\t\tOctavio McNaughton\n\tBeta Testers:\n\t\tAlberto Acosta\n\t\tLogan Suitter\n\n\tOpen Source Code:\n\t\thttps://github.com/Nooneyouknowof/Dot_Souls\n");
-console.log("---=====---\n\nUse 'WASD' to move your character\nUse 'Mouse' to Aim\nUse 'Spacebar' to Shoot\nUse 'LShift' to Slide\nPress 'Ctrl + R' to Restart");
+console.log("---=====---\n\nUse 'WASD' to move your character\nUse 'Mouse' to Aim\nUse 'Spacebar' to Shoot\nUse 'LShift' to Slide\nPress 'R' to Restart");
+if(NoHit) {console.log('Game will restart upon taking damage')};
