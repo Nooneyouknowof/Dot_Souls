@@ -30,6 +30,7 @@ let damage = 0.1;
 let Score = 0;
 let bossAttackType = "boss_arrow";
 let playername = 'Player1';
+let HardcoreMode = false;
 
 let bossObj = {'type': 'boss', 'state': -1, 'damage': 10, 'time': Date.now(), 'x': 50, 'y': 10, 'px': 50, 'py': 10, 'health': 100}
 let objects = [];
@@ -199,11 +200,11 @@ function loop() {
     pt = Date.now();
     boss_health.style.width = `${bossObj['health']}%`;
     player_health.textContent = `Health: ${Math.round(health)}`;
-    if (bossObj['health'] < 50) {
+    if (bossObj['health'] < 50 && !HardcoreMode) {
         attackrate = 1+(bossObj['health']/5);
         bossObj['damage'] = (100-bossObj['health'])/5;
     };
-    if (bossObj['health'] < 10) {
+    if (bossObj['health'] < 10 || HardcoreMode) {
         bossObj['damage'] = 100;
         bossAttackType = "one_shot"
     };
@@ -237,18 +238,30 @@ login.addEventListener('keydown', event => {
         start();
     }
 })
+let allowStart = true;
 function start() {
     playername = document.querySelector("#user").value;
-    if (playername != '') {
+    if (playername != '' && allowStart) {
+        allowStart = false;
         login.style.opacity = 0;
         login.style.animation = 'fade_out 2s ease-out 0s 1 forwards';
         loop();
+    } else {
+        document.querySelector("#user").value = 'Player1';
     }
-    // console.log(playername.value)
-    // localStorage.getItem();
+}
+
+function code(num) {
+    let msg = ''
+    if (num == "Hardcore") {
+        document.getElementById('boss_health').style.display = 'none';
+        bossObj['health'] = Infinity;
+        msg = "Endless mode is now ON";
+    };
+    return msg;
 }
 
 // Instructions
 console.log("　　　  　　／＞　　フ\n　　　 　  |   _　 _\n　 　　 　／` ミ＿xノ\n　　 　 /　　　 　 |\n　　　 /　 ヽ　　 ﾉ\n　 　 │　　|　|　|\n　／￣|　　 |　|　|\n　| (￣ヽ＿_ヽ_)__)\n　＼二つ\tDot Souls\n\n---=====---\n");
-console.log("\tMade by:\n\t\tOctavio McNaughton");
+console.log("\tMade by:\n\t\tOctavio McNaughton\n\tBeta Testers:\n\t\tAlberto Acosta\n\t\tLogan Suitter\n\n\tOpen Source Code:\n\t\thttps://github.com/Nooneyouknowof/Dot_Souls\n");
 console.log("---=====---\n\nUse 'WASD' to move your character\nUse 'Mouse' to Aim\nUse 'Spacebar' to Shoot\nUse 'LShift' to Slide\nPress 'Ctrl + R' to Restart");
